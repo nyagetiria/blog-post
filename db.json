@@ -1,0 +1,32 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "title": "Welcome to the Blog!",
+      "content": "This is the first blog post on this platform. Feel free to explore and add your own content.",
+      "author": "Admin",
+      "image": "https://via.placeholder.com/150/2980b9/ffffff?text=Post+1"
+    },
+    {
+      "id": 2,
+      "title": "JavaScript Tips & Tricks",
+      "content": "JavaScript is a versatile language. Use event delegation, template literals, and async/await to write cleaner code.",
+      "author": "Naomi",
+      "image": "https://via.placeholder.com/150/27ae60/ffffff?text=Post+2"
+    },
+    {
+      "id": 3,
+      "title": "CSS Grid vs Flexbox",
+      "content": "Use CSS Grid for page layouts and Flexbox for aligning items inside components. Learn both for responsive design.",
+      "author": "Jane Doe",
+      "image": "https://via.placeholder.com/150/e74c3c/ffffff?text=Post+3"
+    },
+    {
+      "id": 4,
+      "title": "Understanding REST APIs",
+      "content": "REST APIs allow communication between frontend and backend. Use HTTP methods like GET, POST, PATCH, and DELETE.",
+      "author": "John Smith",
+      "image": "https://via.placeholder.com/150/f39c12/ffffff?text=Post+4"
+    }
+  ]
+}
