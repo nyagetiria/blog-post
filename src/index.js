@@ -1,4 +1,4 @@
-const URL = "http://localhost:3000/posts";
+ const URL = "http://localhost:3000/posts";
 
 document.addEventListener("DOMContentLoaded", () => {
   displayPosts();
@@ -6,32 +6,36 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function displayPosts() {
-  fetch(URL).then(res => res.json()).then(posts => {
-    const list = document.getElementById("post-list");
-    list.innerHTML = "";
-    posts.forEach(p => {
-      const div = document.createElement("div");
-      div.innerHTML = <h3 data-id="${p.id}">${p.title}</h3><img src="${p.image}" />;
-      div.querySelector("h3").onclick = () => showPost(p.id);
-      list.appendChild(div);
+  fetch(URL)
+    .then(res => res.json())
+    .then(posts => {
+      const list = document.getElementById("post-list");
+      list.innerHTML = "";
+      posts.forEach(p => {
+        const div = document.createElement("div");
+        div.innerHTML = `<h3 data-id="${p.id}">${p.title}</h3><img src="${p.image}" />`;
+        div.querySelector("h3").onclick = () => showPost(p.id);
+        list.appendChild(div);
+      });
+      if (posts.length) showPost(posts[0].id);
     });
-    if (posts.length) showPost(posts[0].id);
-  });
 }
 
 function showPost(id) {
-  fetch(${URL}/${id}).then(res => res.json()).then(p => {
-    const d = document.getElementById("post-detail");
-    d.innerHTML = `
-      <h2>${p.title}</h2>
-      <p><strong>${p.author}</strong></p>
-      <img src="${p.image}" />
-      <p>${p.content}</p>
-      <button onclick="editForm(${p.id}, '${p.title}', \${p.content}\)">Edit</button>
-      <button onclick="deletePost(${p.id})">Delete</button>
-      <div id="edit-form-container"></div>
-    `;
-  });
+  fetch(`${URL}/${id}`)
+    .then(res => res.json())
+    .then(p => {
+      const d = document.getElementById("post-detail");
+      d.innerHTML = `
+        <h2>${p.title}</h2>
+        <p><strong>${p.author}</strong></p>
+        <img src="${p.image}" />
+        <p>${p.content}</p>
+        <button onclick="editForm(${p.id}, '${p.title}', \`${p.content.replace(/`/g, "\\`")}\`)">Edit</button>
+        <button onclick="deletePost(${p.id})">Delete</button>
+        <div id="edit-form-container"></div>
+      `;
+    });
 }
 
 function addPost(e) {
@@ -54,7 +58,7 @@ function addPost(e) {
 }
 
 function deletePost(id) {
-  fetch(${URL}/${id}, { method: "DELETE" }).then(() => displayPosts());
+  fetch(`${URL}/${id}`, { method: "DELETE" }).then(() => displayPosts());
 }
 
 function editForm(id, title, content) {
@@ -72,7 +76,7 @@ function editForm(id, title, content) {
       title: e.target.title.value,
       content: e.target.content.value
     };
-    fetch(${URL}/${id}, {
+    fetch(`${URL}/${id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data)
